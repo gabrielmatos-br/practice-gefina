@@ -47,17 +47,29 @@ const invoices: Invoice[] = [
 const app = express();
 const port = 3000;
 
-app.use(function(request, response, next) {
-    console.log(request.method + ' ' + request.url);
-    next();
+app.use(function (request, response, next) {
+  console.log(request.method + ' ' + request.url);
+  next();
 });
-app.get('api-learning/health', function(request, response) {
-    response.status(200).json({ status: 'OK!' });
+app.get('/api-learning/health', function (request, response) {
+  response.status(200).json({ status: 'OK!' });
 });
-app.get('api-learning/invoices', function(request, response) {
-    response.status(200).json(invoices);
+app.get('/api-learning/invoices', function (request, response) {
+  response.status(200).json(invoices);
+});
+app.get('/api-learning/invoices/:id', function (request, response) {
+  const ID = +request.params.id;
+
+  for (let i = 0; i < invoices.length; i++) {
+    if (invoices[i].id === ID) {
+      response.status(200).json(invoices[ID]);
+      return;
+    }
+  }
+
+  response.status(404).json({ error: { message: 'Fatura não encontrada' } });
 })
-app.use(function(request, response) {
-    response.status(404).json({ message: 'Recurso não encontrado.' });
+app.use(function (request, response) {
+  response.status(404).json({ message: 'Recurso não encontrado.' });
 });
 app.listen(port);
