@@ -2,6 +2,7 @@
   "type": "module",
   "scripts": {
     "check": "tsc --noEmit",
+    "start": "node ./server.ts",
     "dev": "node --watch server.ts"
   },
   "devDependencies": {
