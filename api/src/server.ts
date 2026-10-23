@@ -7,8 +7,10 @@ import invoices from '../src/modules/invoice/invoice.route.ts';
 import pool from './shared/database.ts';
 
 const app = express();
-const port = Number(process.env.port) || 3000;
 
+app.use(express.json());
+
+const port = Number(process.env.port) || 3000;
 const dist = path.join(
   import.meta.dirname,
   '..',
